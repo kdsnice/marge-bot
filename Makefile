@@ -28,7 +28,7 @@ bump-requirements: bump-poetry-lock clean-requirements requirements.txt requirem
 
 .PHONY: dockerize
 dockerize:
-	docker build --tag smarkets/marge-bot:$$(cat version) .
+	docker build --tag kdsnice/marge-bot:$$(cat version) .
 
 .PHONY: docker-push
 docker-push:
@@ -37,16 +37,11 @@ docker-push:
 	else \
 		docker login; \
 	fi
-	docker tag smarkets/marge-bot:$$(cat version) smarkets/marge-bot:$(VERSION)
+	docker tag kdsnice/marge-bot:$$(cat version) kdsnice/marge-bot:$(VERSION)
 	if [ "$(VERSION)" = "$$(cat version)" ]; then \
-		docker tag smarkets/marge-bot:$$(cat version) smarkets/marge-bot:latest; \
-		docker tag smarkets/marge-bot:$$(cat version) smarkets/marge-bot:stable; \
-		docker push smarkets/marge-bot:stable; \
-		docker push smarkets/marge-bot:latest; \
+		docker tag kdsnice/marge-bot:$$(cat version) kdsnice/marge-bot:latest; \
+		docker tag kdsnice/marge-bot:$$(cat version) kdsnice/marge-bot:stable; \
+		docker push kdsnice/marge-bot:stable; \
+		docker push kdsnice/marge-bot:latest; \
 	fi
-	docker push smarkets/marge-bot:$(VERSION)
-	# for backwards compatibility push to previous location
-	docker tag smarkets/marge-bot:$$(cat version) smarketshq/marge-bot:latest
-	docker tag smarkets/marge-bot:$$(cat version) smarketshq/marge-bot:$(VERSION)
-	docker push smarketshq/marge-bot:$(VERSION)
-	docker push smarketshq/marge-bot:latest
+	docker push kdsnice/marge-bot:$(VERSION)
